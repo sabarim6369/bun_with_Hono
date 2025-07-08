@@ -1,24 +1,13 @@
-// import { Hono } from 'hono';
-
-// const app = new Hono();
-
-// app.get('/', (c) => c.text('Hello from Hono + Bun!'));
-
-// export default {
-//   port: 3000,~
-//   fetch: app.fetch,
-// };
-
-// import {Hono} from 'hono';
-// const app=new Hono();
-// app.get("/",(c)=>c.text("Hello from Hono + Bun!"));
-// export default {
-//     port:3000,
-//     fetch:app.fetch,
-// };  
 import {Hono} from 'hono';
 const app=new Hono();
-export default{
-    port:4000,
-    fetch:app.fetch,
-}
+import {userrouter} from './Routes/userroutes.js';
+import {feedbackRouter} from './Routes/feedbackroute.js';
+app.route("/api/feedback", feedbackRouter);
+app.route("/api/auth", userrouter);
+app.get("/", (c) => {
+    return c.text("qelcome to the Hono app!");  
+})
+Bun.serve({
+    port:3000,
+    fetch: app.fetch,
+})
